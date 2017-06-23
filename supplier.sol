@@ -11,7 +11,7 @@ contract Supplier {
     mapping(address => int256) public EstimatedUseWh;  	// list of Wh usage estimates    
     address[] public CriticalAddresses;        		// list of critical user addresses in this contract instance - users that must remain connected and accept the market price    
     address[] public AcceptedOfferAddresses;        	// list of critical user addresses in this contract instance - users that must remain connected and accept the market price  
-	int256[] public AcceptedOfferVols;
+    int256[] public AcceptedOfferVols;
     mapping(address => int256) public ActualUseWh;     	// list of recorded Wh usages for member addresses (at same indexing as MemberAddresses)    
     mapping(address => int256) OfferedDemandWh;        	// list of offered Wh usages for non-critical users - those that will be disconnected if market price under their offer    
     int256[] public OfferedDemandOffer;        		// list of offers for Wh usages for non-critical users - those that will be disconnected if market price under their offer    
@@ -50,8 +50,7 @@ contract Supplier {
     int256 public counter = 0;    
     uint public NoMembers;    
     int public totaldeposits;    
-    mapping(address => int256) public balanceOf;    
-    bool public ParentExists = false;    
+    mapping(address => int256) public balanceOf;      
     int256 public sendlevel = 20000000000000000000;    
     int256 public minDeposit =10000000000000000000;    
     int256 public noGenOffers =0;
