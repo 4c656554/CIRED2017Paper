@@ -33,14 +33,14 @@ contract Supplier {
     address[] public RewardOfferAccounts;    
     address[] public PenaltyOfferAccounts;    
     int256 public Reward; 
-	int256 public LossETHpu;
+    int256 public LossETHpu;
     int256 public Penalty; 
     int256 public Volume; 
-	int256 public RewardSum=0;
+    int256 public RewardSum=0;
     int256 public noNonCriticalUSers; 
     int public tempsumeth=0;
-	int public tempsumvol=0;
-	uint256 public b;
+    int public tempsumvol=0;
+    uint256 public b;
         
     int256 public UoSCharge =1;                    // Use of system cost to be set by network operator    
     int256 public LossesWh;                    // Losses for the section of public network associated with the     
@@ -54,16 +54,10 @@ contract Supplier {
     bool public ParentExists = false;    
     int256 public sendlevel = 20000000000000000000;    
     int256 public minDeposit =10000000000000000000;    
-	int256 public noGenOffers =0;
-	int256 public noDemOffers =0;
-	int256 public noOffers = 0;
-    bool public RewardAdditionalDemand;        // flag for reward of demand or gen.    
-	int256 public A=0; 
-	int256 public B=0;
-	int256 public C=0;
-	int256 public D=0;
-      
-
+    int256 public noGenOffers =0;
+    int256 public noDemOffers =0;
+    int256 public noOffers = 0;
+ 
 function getAddresses() constant returns (address[]){
     return MemberAddresses;      
 }
@@ -147,7 +141,7 @@ function getDifferencesWhs(address a) constant returns (int256){
         //OfferedNetDemandWh += Wh;                    // running total of offered usage    
         OfferedDemandOffer.push(offer1);            // list of price offers same indexing as OfferAddresses 
         DemandOfferstoOfferAddressesMap[offer1].push(msg.sender);  
-		noDemOffers++;
+        noDemOffers++;
     }    
         
   
@@ -159,7 +153,7 @@ function getDifferencesWhs(address a) constant returns (int256){
         OfferedGenOffer.push(offer1);            // list of price offers same indexing as OfferAddresses    
         GenOfferstoOfferAddressesMap[offer1].push(msg.sender);
         OfferstoWhmapGen[offer1].push(Wh);
-		noGenOffers++;
+        noGenOffers++;
     }    
         
   
@@ -168,31 +162,31 @@ function getDifferencesWhs(address a) constant returns (int256){
     function setMarketPrice(){    
         int8 offer = 0;    
         //D=1;
-		int k=0;
-		uint loc=0;
+        int k=0;
+        uint loc=0;
 
-		EstimatedNetUseWh=EstimatedNetUseWh+LossesWh;
+        EstimatedNetUseWh=EstimatedNetUseWh+LossesWh;
         if (EstimatedNetUseWh > 0){//excess demand    
        // 
             // iterate OfferedDemandWh, stop when dmeand ~= gen. that is market price.    
                 
                
             while(EstimatedNetUseWh > 0 && noOffers<noGenOffers){
-				A=int(OfferstoWhmapGen[offer].length);
+                A=int(OfferstoWhmapGen[offer].length);
                 for(k=0;k<A;k++){
-					//B=1;
+                    //B=1;
                     loc=uint(k);
-					if((OfferstoWhmapGen[offer][loc])*-1<=(EstimatedNetUseWh)){ //if(getOrderMag(OfferstoWhmapGen[offer][loc])<=getOrderMag(EstimatedNetUseWh)){
-						//C=1;
-						EstimatedNetUseWh += OfferstoWhmapGen[offer][loc];  
-						tempsumeth-=OfferstoWhmapGen[offer][loc]*offer;
-						tempsumvol-=OfferstoWhmapGen[offer][loc];
-						//EstimatedNetUseWhAdjusts(EstimatedNetUseWh);
-						//noNonCriticalUSers += int(GenOfferstoOfferAddressesMap[offer].length);
-						AcceptedOfferAddresses.push(GenOfferstoOfferAddressesMap[offer][loc]);
-						AcceptedOfferVols.push(OfferstoWhmapGen[offer][loc]);
-						
-					}
+                    if((OfferstoWhmapGen[offer][loc])*-1<=(EstimatedNetUseWh)){ //if(getOrderMag(OfferstoWhmapGen[offer][loc])<=getOrderMag(EstimatedNetUseWh)){
+                        //C=1;
+                        EstimatedNetUseWh += OfferstoWhmapGen[offer][loc];  
+                        tempsumeth-=OfferstoWhmapGen[offer][loc]*offer;
+                        tempsumvol-=OfferstoWhmapGen[offer][loc];
+                        //EstimatedNetUseWhAdjusts(EstimatedNetUseWh);
+                        //noNonCriticalUSers += int(GenOfferstoOfferAddressesMap[offer].length);
+                        AcceptedOfferAddresses.push(GenOfferstoOfferAddressesMap[offer][loc]);
+                        AcceptedOfferVols.push(OfferstoWhmapGen[offer][loc]);
+                        
+                    }
                     noOffers++; 
                 }
                 
@@ -200,7 +194,7 @@ function getDifferencesWhs(address a) constant returns (int256){
             }
             MarketPrice = int256(tempsumeth*1000000000000000000)/(tempsumvol);//convert from ETH to WEI/1000 for Wh to kWh
             EstimatedNetUseWh=EstimatedNetUseWh;//-LossesWh;
-			//offer = 0;
+            //offer = 0;
         }    
         //else    commented out as I know it won't be used in my contrived example - operates exactly as previous section
        // {    
@@ -209,19 +203,19 @@ function getDifferencesWhs(address a) constant returns (int256){
             //while(EstimatedNetUseWh < 0 && noOffers<noDemOffers){ 
              //   for(k=0;k<OfferstoWhmapDemand[offer].length;k++){
               //      noOffers++;
-			//		if(getOrderMag(OfferstoWhmapDemand[offer][k])<=getOrderMag(EstimatedNetUseWh)){
-				//		EstimatedNetUseWh += OfferstoWhmapDemand[offer][k]; 
-			//			//EstimatedNetUseWhAdjusts(EstimatedNetUseWh);                
-			//			//noNonCriticalUSers += int(DemandOfferstoOfferAddressesMap[offer].length);
-			//			AcceptedOfferAddresses.push(DemandOfferstoOfferAddressesMap[offer][k]);
-			//		}
+            //        if(getOrderMag(OfferstoWhmapDemand[offer][k])<=getOrderMag(EstimatedNetUseWh)){
+                //        EstimatedNetUseWh += OfferstoWhmapDemand[offer][k]; 
+            //            //EstimatedNetUseWhAdjusts(EstimatedNetUseWh);                
+            //            //noNonCriticalUSers += int(DemandOfferstoOfferAddressesMap[offer].length);
+            //            AcceptedOfferAddresses.push(DemandOfferstoOfferAddressesMap[offer][k]);
+            //        }
                     
             //    }
                 //offer++;    
             //}    
             //MarketPrice = offer;
             //offer = 0;
-			//noOffers=0;
+            //noOffers=0;
         //}    
         // send market price/accept offers at or below offer price
         //MarketPriceAgreed(MarketPrice);
@@ -243,12 +237,12 @@ function getDifferencesWhs(address a) constant returns (int256){
         counter++;    
         ActualUseWh[msg.sender]= WhUsed;    
         ActualNetUseWh += WhUsed;
-		if(WhUsed>0){
-			Volume +=WhUsed;
-		}
-		else{
-			Volume -=WhUsed;
-		}
+        if(WhUsed>0){
+            Volume +=WhUsed;
+        }
+        else{
+            Volume -=WhUsed;
+        }
     }    
         
 // difference between predicted use and actual use calculated    
@@ -280,24 +274,24 @@ function getDifferencesWhs(address a) constant returns (int256){
         Reward = (MarketPrice*EstimatedNetUseWh)/(EstimatedNetUseWh+ActualNetUseWh); 
         LossETHpu = (MarketPrice*LossesWh)/((Volume));
         int R = 0;
-		int D = 0;
-		int actUse;
+        int D = 0;
+        int actUse;
    
        for (uint i = 0; i < RewardAccounts.length; i++){    
                 // get payment for losses    
                 // pay reward account for help per Wh 
-    		R = Reward*DifferenceWh[RewardAccounts[i]];
-    		if(R<0){
+            R = Reward*DifferenceWh[RewardAccounts[i]];
+            if(R<0){
                 R = (-1*R);    
             }
-    		if(ActualUseWh[RewardAccounts[i]]<0){
+            if(ActualUseWh[RewardAccounts[i]]<0){
                 actUse = (-1*ActualUseWh[RewardAccounts[i]]);    
             }
             else{
                 actUse = (ActualUseWh[RewardAccounts[i]]);
             }
             balanceOf[RewardAccounts[i]] = balanceOf[RewardAccounts[i]] - MarketPrice*(ActualUseWh[RewardAccounts[i]])-UoSCharge+R-(LossETHpu*(actUse));    //+ MarketPrice*(ActualUseWh[RewardAccounts[i]]-UoSCharge)//
-    		RewardSum += R;
+            RewardSum += R;
         } 
         Penalty=RewardSum/(EstimatedNetUseWh-ActualNetUseWh);
 
@@ -310,13 +304,13 @@ function getDifferencesWhs(address a) constant returns (int256){
             else{
                 actUse = (ActualUseWh[PenaltyAccounts[i]]);
             }
-			D=	Penalty*DifferenceWh[PenaltyAccounts[i]];
-			if(D<0){
+            D=    Penalty*DifferenceWh[PenaltyAccounts[i]];
+            if(D<0){
                 D = (-1*D);    
             }
 
             balanceOf[PenaltyAccounts[i]] = balanceOf[PenaltyAccounts[i]]  - MarketPrice*(ActualUseWh[PenaltyAccounts[i]])-UoSCharge - D-(LossETHpu*(actUse));//Reward*DifferenceWh[RewardAccounts[i]];//Reward/int(PenaltyAccounts.length);    //)//
-       } 			
+       }             
        for (i = 0; i < AcceptedOfferAddresses.length; i++){    
             // get payment form penalty accounts for misestimation and losses                    
           balanceOf[AcceptedOfferAddresses[i]] = balanceOf[AcceptedOfferAddresses[i]] + MarketPrice*(ActualUseWh[AcceptedOfferAddresses[i]])+UoSCharge+LossETHpu*(ActualUseWh[AcceptedOfferAddresses[i]]);    
@@ -325,17 +319,7 @@ function getDifferencesWhs(address a) constant returns (int256){
            
  
     }
-	
-	
-    function getAbs(int256 a) {
-        if(a<0){
-            b = uint(-1*a);    
-        }
-        else{
-            b = uint(a);
-        }
-    }	
-	
+    
     function withdraw(address _to, uint _value) {
             if (balanceOf[msg.sender] > sendlevel){
                 if(!_to.send(uint(balanceOf[msg.sender]) - uint(minDeposit))){
@@ -345,14 +329,4 @@ function getDifferencesWhs(address a) constant returns (int256){
             } // send profit back  
         
     }
-    
-
-    
-}    
-        
-    
-
-
-
-
-
+}   
