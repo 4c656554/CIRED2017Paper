@@ -1,7 +1,7 @@
 "# CIRED2017Paper" 
 
 
-This directory contains the solidity code and testing instructions for the code referenced in the following paper:
+This directory contains the solidity code and testing instructions for the code referenced in the following paper (I'll add a link when it becomes available):
 
 Thomas, Long, Burnamp, Wu, Jenkins "Automation of the Supplier Role in the GB Power System using Blockchain Based Smart Contracts" presented at CIRED 2017, Glasgow.
 
