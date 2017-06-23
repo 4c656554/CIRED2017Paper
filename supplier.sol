@@ -109,18 +109,6 @@ function getDifferencesWhs(address a) constant returns (int256){
     return DifferenceWh[a]; 
 }
 
-    function getOrderMag(int256 input) constant returns (int256){
-        int counter=0;
-		if (input<0){
-		    input=input*-1;
-        }
-            while((input/10)>=1){
-                input = input/10;
-                counter++;
-            }
-        
-        return counter;
-    }
 
 //******************************************************************************    
 //Initialise Inter-contract Structure    
@@ -137,7 +125,7 @@ function getDifferencesWhs(address a) constant returns (int256){
 //Pre Time of Use     
     
     function () payable { // called when transaction sent to contract - this deposits Ether and registers user    
-        //if (crowdsaleClosed) throw;    
+  
         int amount = int(msg.value);    
         balanceOf[msg.sender] = amount;    
         totaldeposits += amount;   
@@ -176,11 +164,9 @@ function getDifferencesWhs(address a) constant returns (int256){
 		noGenOffers++;
     }    
         
-       
-    //function that waits 3 blocks and then calls PasstoParent() if parent else does market    
- 
   
-    
+
+ 
     function setMarketPrice(){    
         int8 offer = 0;    
         //D=1;
@@ -218,7 +204,7 @@ function getDifferencesWhs(address a) constant returns (int256){
             EstimatedNetUseWh=EstimatedNetUseWh;//-LossesWh;
 			//offer = 0;
         }    
-        //else    
+        //else    commented out as I know it won't be used in my contrived example - operates exactly as previous section
        // {    
             // iterate OfferedUseWh, stop when dmeand ~= gen. that is market price.    
             
@@ -244,7 +230,7 @@ function getDifferencesWhs(address a) constant returns (int256){
     }
     
     function submitLosses(int256 LossesWhfromSO){
-		LossesWh = LossesWhfromSO;
+        LossesWh = LossesWhfromSO;
         ImbalancetoSO(EstimatedNetUseWh + LossesWhfromSO);
     }
         
@@ -254,7 +240,6 @@ function getDifferencesWhs(address a) constant returns (int256){
     
     
 // Users submit actual usage    
-// waits x time, if not submitted assumes charges penalty rate    
     
     function submitActualUseWh(int256 WhUsed) {    
         counter++;    
@@ -270,7 +255,7 @@ function getDifferencesWhs(address a) constant returns (int256){
         
 // difference between predicted use and actual use calculated    
     function CompareActualEstimated() {    
-        ActualNetUseWh=ActualNetUseWh+LossesWh;//+LossesWh;
+        ActualNetUseWh=ActualNetUseWh+LossesWh;
   
         for (uint i = 0; i < CriticalAddresses.length; i++){    
           DifferenceWh[CriticalAddresses[i]] = ActualUseWh[CriticalAddresses[i]] - EstimatedUseWh[CriticalAddresses[i]];    
@@ -315,13 +300,8 @@ function getDifferencesWhs(address a) constant returns (int256){
             }
             balanceOf[RewardAccounts[i]] = balanceOf[RewardAccounts[i]] - MarketPrice*(ActualUseWh[RewardAccounts[i]])-UoSCharge+R-(LossETHpu*(actUse));    //+ MarketPrice*(ActualUseWh[RewardAccounts[i]]-UoSCharge)//
     		RewardSum += R;
-             //   if (balanceOf[RewardAccounts[i]] > sendlevel){
-             //       if(!RewardAccounts[i].send(uint(balanceOf[RewardAccounts[i]]) - uint(minDeposit))){
-             //           throw;
-             //       }
-             //       }
-        } // send profit back
-		Penalty=RewardSum/(EstimatedNetUseWh-ActualNetUseWh);
+        } 
+        Penalty=RewardSum/(EstimatedNetUseWh-ActualNetUseWh);
 
         
         for (i = 0; i < PenaltyAccounts.length; i++){    
