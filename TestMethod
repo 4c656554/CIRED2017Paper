@@ -2,7 +2,7 @@ Console 0:
 
 testrpc -a 1000 -g 1000000000000 -l 100000000000
 
-Console 2:
+Console 1:
 
 geth attach rpc:http://localhost:8545
 
