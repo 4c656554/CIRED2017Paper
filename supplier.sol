@@ -3,27 +3,25 @@ contract Supplier {
     
     event MarketPriceAgreed(int8 mprice); // Event
     event ImbalancetoSO(int Imbalance);
-    event EstimatedNetUseWhAdjusts(int EstimatedNetUseWh);
-    event addressregistered(address addy);
     
 //******************************************************************************    
 //Initialise members    
     
-    address[] public MemberAddresses;        // list of all user addresses in this contract instance    
-    mapping(address => int256) public EstimatedUseWh;            // list of Wh usage estimates    
-    address[] public CriticalAddresses;        // list of critical user addresses in this contract instance - users that must remain connected and accept the market price    
-    address[] public AcceptedOfferAddresses;        // list of critical user addresses in this contract instance - users that must remain connected and accept the market price  
+    address[] public MemberAddresses;        		// list of all user addresses in this contract instance    
+    mapping(address => int256) public EstimatedUseWh;  	// list of Wh usage estimates    
+    address[] public CriticalAddresses;        		// list of critical user addresses in this contract instance - users that must remain connected and accept the market price    
+    address[] public AcceptedOfferAddresses;        	// list of critical user addresses in this contract instance - users that must remain connected and accept the market price  
 	int256[] public AcceptedOfferVols;
-    mapping(address => int256) public ActualUseWh;            // list of recorded Wh usages for member addresses (at same indexing as MemberAddresses)    
-    mapping(address => int256) OfferedDemandWh;            // list of offered Wh usages for non-critical users - those that will be disconnected if market price under their offer    
-    int256[] public OfferedDemandOffer;        // list of offers for Wh usages for non-critical users - those that will be disconnected if market price under their offer    
-    address[] public DemandOfferAddresses;        // list of addresses of non-critical users - those that will be disconnected if market price under their offer    
-    mapping(address => int256) public OfferedGenWh;            // list of offered Wh usages for non-critical users - those that will be disconnected if market price under their offer    
-    int256[] public OfferedGenOffer;        // list of offers for Wh usages for non-critical users - those that will be disconnected if market price under their offer    
-    address[] public GenOfferAddresses;        // list of addresses of non-critical users - those that will be disconnected if market price under their offer    
-    int256[] public DiffEstActUseWh;        // list of differences between usage estimates and actual usage for member addresses    
-    int256[] public UseValuePU;                //    
-    int256[] public DiffValuePU;            //    
+    mapping(address => int256) public ActualUseWh;     	// list of recorded Wh usages for member addresses (at same indexing as MemberAddresses)    
+    mapping(address => int256) OfferedDemandWh;        	// list of offered Wh usages for non-critical users - those that will be disconnected if market price under their offer    
+    int256[] public OfferedDemandOffer;        		// list of offers for Wh usages for non-critical users - those that will be disconnected if market price under their offer    
+    address[] public DemandOfferAddresses;        	// list of addresses of non-critical users - those that will be disconnected if market price under their offer    
+    mapping(address => int256) public OfferedGenWh;  	// list of offered Wh usages for non-critical users - those that will be disconnected if market price under their offer    
+    int256[] public OfferedGenOffer;        		// list of offers for Wh usages for non-critical users - those that will be disconnected if market price under their offer    
+    address[] public GenOfferAddresses;        		// list of addresses of non-critical users - those that will be disconnected if market price under their offer    
+    int256[] public DiffEstActUseWh;        		// list of differences between usage estimates and actual usage for member addresses    
+    int256[] public UseValuePU;                		//    
+    int256[] public DiffValuePU;            		//    
     int256 public ActualNetUseWh;    
     mapping(address => int256) public DifferenceWh;    
     mapping(int8 => int256[]) public OfferstoWhmapDemand;    
