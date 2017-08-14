@@ -7,4 +7,4 @@ Thomas, Long, Burnamp, Wu, Jenkins "Automation of the Supplier Role in the GB Po
 
 The proposed algorithm combines a merit-order type method to ascertain a market price. It then has a peer to peer penalty and reward system based on how closely the users estimate matched their actual usage, and, in the event of a mismatch, whether their misestimation tended to balance, or unbalance the system.
 
-As alluded to in the paper, this code needs a bit of work. It contains a number of loops. In the test run I raised the block gas limit to ensure that it functioned.
+In the test run I raised the block gas limit to ensure that it functioned. The code contains a number of loops - I aim to find a way to remove these in future.
